@@ -29,7 +29,6 @@ class Config:
         self.check_config()
 
     def get_temp_mail(self):
-
         return self.temp_mail
 
     def get_domain(self):

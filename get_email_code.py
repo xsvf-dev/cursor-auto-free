@@ -5,10 +5,10 @@ from config import Config
 
 
 class EmailVerificationHandler:
-    def __init__(self, browser, mail_url="https://tempmail.plus"):
+    def __init__(self, browser, tmp, mail_url="https://tempmail.plus"):
         self.browser = browser
         self.mail_url = mail_url
-        self.username = Config().get_temp_mail()
+        self.username = tmp
 
     def get_verification_code(self):
         code = None

@@ -162,13 +162,13 @@ def build():
         else:
             subprocess.run(["cp", "config.ini.example", f"{output_dir}/config.ini"])
 
-    # Copy .env.example file
-    if os.path.exists(".env.example"):
+    # Copy .env file
+    if os.path.exists(".env"):
         simulate_progress("Copying environment file...", 0.5)
         if system == "windows":
-            subprocess.run(["copy", ".env.example", f"{output_dir}\\.env"], shell=True)
+            subprocess.run(["copy", ".env", f"{output_dir}\\.env"], shell=True)
         else:
-            subprocess.run(["cp", ".env.example", f"{output_dir}/.env"])
+            subprocess.run(["cp", ".env", f"{output_dir}/.env"])
 
     print(
         f"\n\033[92mBuild completed successfully! Output directory: {output_dir}\033[0m"

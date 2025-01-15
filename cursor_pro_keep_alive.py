@@ -9,7 +9,6 @@ os.environ["PYINSTALLER_VERBOSE"] = "0"
 import time
 import random
 from cursor_auth_manager import CursorAuthManager
-import os
 from logger import logging
 from browser_utils import BrowserManager
 from get_email_code import EmailVerificationHandler
@@ -231,7 +230,9 @@ class EmailGenerator:
         """生成随机邮箱地址"""
         random_str = "".join(random.choices("abcdefghijklmnopqrstuvwxyz", k=length))
         timestamp = str(int(time.time()))[-6:]  # 使用时间戳后6位
-        return f"{random_str}{timestamp}@{self.domain}"
+        # return f"{random_str}{timestamp}@{self.domain}"
+        tmp = f"{random_str}{timestamp}"
+        return f"{tmp}@mailto.plus", tmp
 
     def get_account_info(self):
         """获取完整的账号信息"""
@@ -253,9 +254,6 @@ if __name__ == "__main__":
         browser_manager = BrowserManager()
         browser = browser_manager.init_browser()
 
-        logging.info("正在初始化邮箱验证模块...")
-        email_handler = EmailVerificationHandler(browser)
-
         logging.info("\n=== 配置信息 ===")
         login_url = "https://authenticator.cursor.sh"
         sign_up_url = "https://authenticator.cursor.sh/sign-up"
@@ -264,10 +262,13 @@ if __name__ == "__main__":
 
         logging.info("正在生成随机账号信息...")
         email_generator = EmailGenerator()
-        account = email_generator.generate_email()
+        account, tmp = email_generator.generate_email()
         password = email_generator.default_password
         first_name = email_generator.default_first_name
         last_name = email_generator.default_last_name
+
+        logging.info("正在初始化邮箱验证模块...")
+        email_handler = EmailVerificationHandler(browser, tmp)
 
         logging.info(f"生成的邮箱账号: {account}")
         auto_update_cursor_auth = True

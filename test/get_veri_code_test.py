@@ -9,7 +9,7 @@ import os
 def get_extension_path():
     """获取插件路径"""
     root_dir = os.getcwd()
-    extension_path = os.path.join(root_dir, "turnstilePatch")
+    extension_path = os.path.join(root_dir, ".." ,"turnstilePatch")
 
     if hasattr(sys, "_MEIPASS"):
         print("运行在打包环境中")
@@ -121,6 +121,6 @@ def get_veri_code(username):
 
 # 测试运行
 if __name__ == "__main__":
-    test_username = "test_user"  # 替换为你要测试的用户名
+    test_username = "tgfdfgdfgfdg"  # 替换为你要测试的用户名
     code = get_veri_code(test_username)
     print(f"获取到的验证码: {code}")
